@@ -1,0 +1,58 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" controller="Account360Ctrl" access="global" >
+    <!-- COMPONENT HEADER --> 
+    <div class="slds-page-header__name">
+            <div class="slds-page-header__name-title">
+              <h1>
+                <span class="slds-page-header__title slds-truncate" title="Customer360Panel">Customer360</span>
+              </h1>
+            </div>
+    </div>
+    <!-- 1ST LEVEL NAVIGATION -->
+    <div class="slds-grid slds-gutters">
+        <!-- CONTACT HEADER -->
+       	<div aura:id="contactIcon" style="padding-left:2rem;padding-top:1rem;">
+        	<span class="slds-icon_container" title="contactIcon">
+        		<lightning:icon iconName="standard:contact_list" alternativeText="Contact" title="Contact" size="large" />
+        	</span>
+        </div>
+        <!-- CASE HEADER -->
+    	<div aura:id="CaseIcon" style="padding-left:5.6rem;padding-top:1rem;">
+        	<span class="slds-icon_container" title="CaseIcon">
+        		<lightning:icon iconName="standard:case" alternativeText="Case" title="Cases" size="large" />
+        	</span>
+        </div>
+        <!-- POLICY HEADER -->
+    	<div aura:id="PoliciesIcon" style="padding-left:5.6rem;padding-top:1rem;">
+        	<span class="slds-icon_container" title="PoliciesIcon">
+        		<lightning:icon iconName="standard:opportunity" alternativeText="Policies" title="Policies" size="large" />
+        	</span>
+        </div>
+    </div>
+    <!-- ACCOUNT HEADER -->
+    	<div aura:id="accounticon" style="padding-left:10rem;padding-top:2rem;">
+        	<span class="slds-icon_container slds-icon_flip" title="accounticon">
+        		<lightning:icon iconName="standard:customer_360" alternativeText="Account" title="Account" size="large" onmouseenter="{!c.fetchAccountDetails}" />
+        	</span>
+        </div>
+    <!-- 2ND  LEVEL NAVIGATION -->
+    <div class="slds-grid slds-gutters">
+        <!-- SUMMARY HEADER -->
+       	<div aura:id="SummaryIcon" style="padding-left:2rem;padding-top:2rem;">
+        	<span class="slds-icon_container" title="SummaryIcon">
+        		<lightning:icon iconName="doctype:pdf" alternativeText="pdfSummary" title="Summary" size="large" />
+        	</span>
+        </div>
+        <!-- ASSIGNMENT HEADER -->
+    	<div aura:id="AssignmentIcon" style="padding-left:5.6rem;padding-top:2rem;">
+        	<span class="slds-icon_container" title="AssignmentIcon">
+        		<lightning:icon iconName="standard:assignment" alternativeText="Assignments" title="Assignments" size="large" />
+        	</span>
+        </div>
+         <!-- GOAL HEADER -->
+    	<div aura:id="GoalsIcon" style="padding-left:5.6rem;padding-top:2rem;">
+        	<span class="slds-icon_container" title="GoalsIcon">
+        		<lightning:icon iconName="standard:goals" alternativeText="Goals" title="Goals" size="large" />
+        	</span>
+        </div>
+    </div>
+</aura:component>
