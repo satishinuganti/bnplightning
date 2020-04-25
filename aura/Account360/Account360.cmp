@@ -1,9 +1,12 @@
 <aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" controller="Account360Ctrl" access="global" >
+    <!-- AURA ATTRIBUTES -->
+    <aura:attribute name="accountRecord" type="List" default="[]" />
+    <aura:attribute name="togglehover" type="boolean" default="true"/>
     <!-- COMPONENT HEADER --> 
     <div class="slds-page-header__name">
             <div class="slds-page-header__name-title">
               <h1>
-                <span class="slds-page-header__title slds-truncate" title="Customer360Panel">Customer360</span>
+                <span class="slds-page-header__title slds-truncate" title="Customer360Panel">Customer 360°</span>
               </h1>
             </div>
     </div>
@@ -12,46 +15,63 @@
         <!-- CONTACT HEADER -->
        	<div aura:id="contactIcon" style="padding-left:2rem;padding-top:1rem;">
         	<span class="slds-icon_container" title="contactIcon">
-        		<lightning:icon iconName="standard:contact_list" alternativeText="Contact" title="Contact" size="large" />
+        		<lightning:icon iconName="standard:contact_list" alternativeText="Contact" title="Contact" size="large"/>
         	</span>
         </div>
         <!-- CASE HEADER -->
     	<div aura:id="CaseIcon" style="padding-left:5.6rem;padding-top:1rem;">
         	<span class="slds-icon_container" title="CaseIcon">
-        		<lightning:icon iconName="standard:case" alternativeText="Case" title="Cases" size="large" />
+        		<lightning:icon iconName="standard:case" alternativeText="Case" title="Cases" size="large"/>
         	</span>
         </div>
         <!-- POLICY HEADER -->
     	<div aura:id="PoliciesIcon" style="padding-left:5.6rem;padding-top:1rem;">
         	<span class="slds-icon_container" title="PoliciesIcon">
-        		<lightning:icon iconName="standard:opportunity" alternativeText="Policies" title="Policies" size="large" />
+        		<lightning:icon iconName="standard:opportunity" alternativeText="Policies" title="Policies" size="large"/>
         	</span>
         </div>
     </div>
     <!-- ACCOUNT HEADER -->
     	<div aura:id="accounticon" style="padding-left:10rem;padding-top:2rem;">
         	<span class="slds-icon_container slds-icon_flip" title="accounticon">
-        		<lightning:icon iconName="standard:customer_360" alternativeText="Account" title="Account" size="large" onmouseenter="{!c.fetchAccountDetails}" />
+        		<lightning:icon iconName="standard:customer_360" alternativeText="Account" title="Account" size="large" onmouseenter="{!c.fetchAccountDetails}" onmouseleave="{!c.reset}" />
         	</span>
+            <aura:if isTrue="{!v.togglehover == true}">
+            <aura:if isTrue="{!not(empty(v.accountRecord))}">
+            <section aria-describedby="dialog-body-id-98" aria-labelledby="dialog-heading-id-103" class="slds-popover slds-nubbin_left"
+						style="position:absolute;" role="dialog">
+					<header class="slds-popover__header">
+                        <h2 class="slds-text-heading_small" id="dialog-heading-id-103"><b>Account Details</b></h2>
+					</header>
+				<div class="slds-popover__body" id="dialog-body-id-98" >
+                    <aura:iteration items="{!v.accountRecord}" var="acc">
+                        <p><b>Account Name</b> : <i>{!acc.Name}</i></p><br/>
+                        <p><b>Account Number</b> : <i>{!acc.AccountNumber}</i></p><br/>
+                        <p><b>Account Type</b> : <i>{!acc.AccountType}</i></p>
+                    </aura:iteration>
+				</div>
+			</section>
+            </aura:if>
+            </aura:if>
         </div>
     <!-- 2ND  LEVEL NAVIGATION -->
     <div class="slds-grid slds-gutters">
         <!-- SUMMARY HEADER -->
        	<div aura:id="SummaryIcon" style="padding-left:2rem;padding-top:2rem;">
         	<span class="slds-icon_container" title="SummaryIcon">
-        		<lightning:icon iconName="doctype:pdf" alternativeText="pdfSummary" title="Summary" size="large" />
+        		<lightning:icon iconName="doctype:pdf" alternativeText="pdfSummary" title="Summary" size="large"/>
         	</span>
         </div>
         <!-- ASSIGNMENT HEADER -->
     	<div aura:id="AssignmentIcon" style="padding-left:5.6rem;padding-top:2rem;">
         	<span class="slds-icon_container" title="AssignmentIcon">
-        		<lightning:icon iconName="standard:assignment" alternativeText="Assignments" title="Assignments" size="large" />
+        		<lightning:icon iconName="standard:assignment" alternativeText="Assignments" title="Assignments" size="large"/>
         	</span>
         </div>
          <!-- GOAL HEADER -->
     	<div aura:id="GoalsIcon" style="padding-left:5.6rem;padding-top:2rem;">
         	<span class="slds-icon_container" title="GoalsIcon">
-        		<lightning:icon iconName="standard:goals" alternativeText="Goals" title="Goals" size="large" />
+        		<lightning:icon iconName="standard:goals" alternativeText="Goals" title="Goals" size="large"/>
         	</span>
         </div>
     </div>
