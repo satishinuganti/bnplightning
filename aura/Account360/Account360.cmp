@@ -1,6 +1,7 @@
 <aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" controller="Account360Ctrl" access="global" >
     <!-- AURA ATTRIBUTES -->
     <aura:attribute name="accountRecord" type="List" default="[]" />
+    <aura:attribute name="primaryContact" type="List" default="[]" />
     <aura:attribute name="togglehover" type="boolean" default="true"/>
     <!-- COMPONENT HEADER --> 
     <div class="slds-page-header__name">
@@ -13,10 +14,25 @@
     <!-- 1ST LEVEL NAVIGATION -->
     <div class="slds-grid slds-gutters">
         <!-- CONTACT HEADER -->
-       	<div aura:id="contactIcon" style="padding-left:2rem;padding-top:1rem;">
+       	<div aura:id="contactIcon" style="padding-left:2rem;padding-top:1rem;" tooltip-trigger="none">
         	<span class="slds-icon_container" title="contactIcon">
-        		<lightning:icon iconName="standard:contact_list" alternativeText="Contact" title="Contact" size="large"/>
+        		<lightning:icon iconName="standard:contact_list" alternativeText="Contact" title="Contact" size="large" onmouseover="{!c.fetchPrimaryContact}" onmouseleave="{!c.reset}"/>
         	</span>
+            <aura:if isTrue="{!v.togglehover == true}">
+            <aura:if isTrue="{!not(empty(v.primaryContact))}">
+            <section class="slds-popover slds-nubbin_left" style="position:absolute;" role="dialog">
+				<div class="slds-popover__body" id="dialog-body-id-98">
+                    <aura:iteration items="{!v.primaryContact}" var="con">
+                        <p><b>Contact Name</b> : <i>{!con.FirstName}</i> <i>{!con.LastName}</i> </p><br/>
+                        <p><b>Contact Phone</b> : <i>{!con.Phone}</i></p><br/>
+                        <p><b>Mobile Phone</b> : <i>{!con.MobilePhone}</i></p><br/>
+                        <p><b>Other Phone</b> : <i>{!con.OtherPhone}</i></p><br/>
+                        <p><b>Contact Email</b> : <i>{!con.Email}</i></p>
+                    </aura:iteration>
+				</div>
+			</section>
+            </aura:if>
+            </aura:if>
         </div>
         <!-- CASE HEADER -->
     	<div aura:id="CaseIcon" style="padding-left:5.6rem;padding-top:1rem;">
@@ -32,18 +48,14 @@
         </div>
     </div>
     <!-- ACCOUNT HEADER -->
-    	<div aura:id="accounticon" style="padding-left:10rem;padding-top:2rem;">
+    	<div aura:id="accounticon" style="padding-left:10rem;padding-top:2rem;" tooltip-trigger="none">
         	<span class="slds-icon_container slds-icon_flip" title="accounticon">
-        		<lightning:icon iconName="standard:customer_360" alternativeText="Account" title="Account" size="large" onmouseenter="{!c.fetchAccountDetails}" onmouseleave="{!c.reset}" />
+        		<lightning:icon iconName="standard:customer_360" alternativeText="Account" title="Account" size="large" onmouseover="{!c.fetchAccountDetails}" onmouseleave="{!c.reset}" />
         	</span>
             <aura:if isTrue="{!v.togglehover == true}">
             <aura:if isTrue="{!not(empty(v.accountRecord))}">
-            <section aria-describedby="dialog-body-id-98" aria-labelledby="dialog-heading-id-103" class="slds-popover slds-nubbin_left"
-						style="position:absolute;" role="dialog">
-					<header class="slds-popover__header">
-                        <h2 class="slds-text-heading_small" id="dialog-heading-id-103"><b>Account Details</b></h2>
-					</header>
-				<div class="slds-popover__body" id="dialog-body-id-98" >
+            <section class="slds-popover slds-nubbin_left" style="position:absolute;" role="dialog">
+				<div class="slds-popover__body" id="dialog-body-id-98">
                     <aura:iteration items="{!v.accountRecord}" var="acc">
                         <p><b>Account Name</b> : <i>{!acc.Name}</i></p><br/>
                         <p><b>Account Number</b> : <i>{!acc.AccountNumber}</i></p><br/>
